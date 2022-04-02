@@ -21,6 +21,7 @@ const MyInput = forwardRef((props, ref) => {
     };
 
     useImperativeHandle(ref, () => ({
+        setValue,
         getValue,
     }));
 

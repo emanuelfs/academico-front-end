@@ -4,11 +4,13 @@ import axios from 'axios';
 import MyButton from './components/MyButton';
 import MyInput from './components/MyInput';
 import MyTitle from './components/MyTitle';
+import DataGrid from './components/DataGrid';
 
 function App() {
 
     const myTitleRef = createRef();
     const inputNameRef = createRef();
+    const alunoDataGridRef = createRef();
 
     const getMyTitleRef = () => {
         return myTitleRef.current;
@@ -16,6 +18,10 @@ function App() {
 
     const getInputNameRef = () => {
         return inputNameRef.current;
+    };
+
+    const getAlunoDataGridRef = () => {
+        return alunoDataGridRef.current;
     };
 
     const setTitle = newTitle => {
@@ -26,11 +32,18 @@ function App() {
         await axios.post('/api/TbAluno', {
             nome: getInputNameRef().getValue(),
         });
+
+        getAlunoDataGridRef().getData();
+        getInputNameRef().setValue('');
     };
 
     return (
-        <div>
-            <MyTitle
+        <div
+            style={{
+                margin: '5% 15%',
+            }}
+        >
+            {/* <MyTitle
                 ref={myTitleRef}
                 defaultTitle='Minha aplicação'
             />
@@ -68,7 +81,21 @@ function App() {
                 />
             )}
             <br />
-            <br />
+            <br /> */}
+            <DataGrid
+                ref={alunoDataGridRef}
+                baseURL='api/TbAluno'
+                columns={[
+                    {
+                        value: 'id',
+                        display: 'ID',
+                    },
+                    {
+                        value: 'nome',
+                        display: 'Nome',
+                    },
+                ]}
+            />
             <MyInput
                 ref={inputNameRef}
                 label='Nome: '
