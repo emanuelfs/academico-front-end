@@ -85,6 +85,7 @@ function App() {
             <DataGrid
                 ref={alunoDataGridRef}
                 baseURL='api/TbAluno'
+                idColumnName='id'
                 columns={[
                     {
                         value: 'id',

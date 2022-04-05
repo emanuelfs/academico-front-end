@@ -11,6 +11,7 @@ const DataGrid = forwardRef((props, ref) => {
     const {
         baseURL,
         columns,
+        idColumnName,
     } = props;
 
     const [state, setState] = useState({
@@ -25,6 +26,12 @@ const DataGrid = forwardRef((props, ref) => {
             loadData: false,
             rows: data,
         });
+    };
+
+    const deleteRow = async rowId => {
+        await axios.delete(`${baseURL}/${rowId}`);
+
+        getData();
     };
 
     useEffect(() => {
@@ -51,6 +58,9 @@ const DataGrid = forwardRef((props, ref) => {
                 }}
             >
                 {columns.map(column => <div key={column.value}>{column.display}</div>)}
+                <div>
+                    Ações
+                </div>
             </div>
             {rows.map((row, index) =>
                 <div
@@ -62,6 +72,15 @@ const DataGrid = forwardRef((props, ref) => {
                     }}
                 >
                     {columns.map(column => <div key={`${index}_${column.value}`}>{row[column.value]}</div>)}
+                    <div>
+                        <button
+                            onClick={() => {
+                                deleteRow(row[idColumnName]);
+                            }}
+                        >
+                            Excluir
+                        </button>
+                    </div>
                 </div>
             )}
         </Fragment>
