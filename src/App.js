@@ -1,4 +1,7 @@
-import { createRef } from 'react';
+import {
+    createRef,
+    useRef,
+} from 'react';
 import axios from 'axios';
 
 import MyButton from './components/MyButton';
@@ -12,6 +15,8 @@ function App() {
     const inputNameRef = createRef();
     const alunoDataGridRef = createRef();
 
+    const selectedRowId = useRef(null);
+
     const getMyTitleRef = () => {
         return myTitleRef.current;
     };
@@ -24,14 +29,39 @@ function App() {
         return alunoDataGridRef.current;
     };
 
+    const setSelectedRowId = rowId => {
+        selectedRowId.current = rowId;
+    };
+
+    const getSelectedRowId = () => {
+        return selectedRowId.current;
+    };
+
     const setTitle = newTitle => {
         getMyTitleRef().setTitle(newTitle);
     };
 
+    const handleOnDataGridUpdateRow = (rowId, rowData) => {
+        setSelectedRowId(rowId);
+
+        getInputNameRef().setValue(rowData.nome);
+    };
+
     const handleOnButtonSaveClick = async () => {
-        await axios.post('/api/TbAluno', {
-            nome: getInputNameRef().getValue(),
-        });
+        let rowId = getSelectedRowId();
+
+        if (rowId) {
+            await axios.put(`/api/TbAluno/${rowId}`, {
+                id: rowId,
+                nome: getInputNameRef().getValue(),
+            });
+
+            setSelectedRowId(null);
+        } else {
+            await axios.post('/api/TbAluno', {
+                nome: getInputNameRef().getValue(),
+            });
+        }
 
         getAlunoDataGridRef().getData();
         getInputNameRef().setValue('');
@@ -86,6 +116,7 @@ function App() {
                 ref={alunoDataGridRef}
                 baseURL='api/TbAluno'
                 idColumnName='id'
+                updateRow={handleOnDataGridUpdateRow}
                 columns={[
                     {
                         value: 'id',

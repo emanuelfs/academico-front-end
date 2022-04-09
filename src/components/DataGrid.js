@@ -12,12 +12,17 @@ const DataGrid = forwardRef((props, ref) => {
         baseURL,
         columns,
         idColumnName,
+        updateRow,
     } = props;
 
     const [state, setState] = useState({
         loadData: true,
         rows: [],
     });
+
+    const handleOnUpdate = (rowId, rowData) => {
+        updateRow(rowId, rowData);
+    };
 
     const getData = async () => {
         const { data } = await axios.get(baseURL);
@@ -73,6 +78,13 @@ const DataGrid = forwardRef((props, ref) => {
                 >
                     {columns.map(column => <div key={`${index}_${column.value}`}>{row[column.value]}</div>)}
                     <div>
+                        <button
+                            onClick={() => {
+                                handleOnUpdate(row[idColumnName], row);
+                            }}
+                        >
+                            Alterar
+                        </button>
                         <button
                             onClick={() => {
                                 deleteRow(row[idColumnName]);
