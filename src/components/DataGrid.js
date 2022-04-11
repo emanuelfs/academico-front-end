@@ -6,6 +6,9 @@ import {
     useImperativeHandle,
     useState,
 } from 'react';
+import {
+    Button,
+} from '@material-ui/core';
 
 const DataGrid = forwardRef((props, ref) => {
     const {
@@ -78,20 +81,24 @@ const DataGrid = forwardRef((props, ref) => {
                 >
                     {columns.map(column => <div key={`${index}_${column.value}`}>{row[column.value]}</div>)}
                     <div>
-                        <button
+                        <Button
+                            variant='contained'
+                            color='primary'
                             onClick={() => {
                                 handleOnUpdate(row[idColumnName], row);
                             }}
                         >
                             Alterar
-                        </button>
-                        <button
+                        </Button>
+                        <Button
+                            variant='contained'
+                            color='primary'
                             onClick={() => {
                                 deleteRow(row[idColumnName]);
                             }}
                         >
                             Excluir
-                        </button>
+                        </Button>
                     </div>
                 </div>
             )}

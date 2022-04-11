@@ -1,4 +1,9 @@
-import { useState } from 'react';
+import {
+    useState,
+} from 'react';
+import {
+    Button,
+} from '@material-ui/core';
 
 function MyButton(props) {
     const {
@@ -20,9 +25,13 @@ function MyButton(props) {
     };
 
     return (
-        <button onClick={handleOnClick}>
+        <Button
+            variant='contained'
+            color='primary'
+            onClick={handleOnClick}
+        >
             {!!increment ? `${text}: ${count}` : text}
-        </button>
+        </Button>
     );
 }
 
