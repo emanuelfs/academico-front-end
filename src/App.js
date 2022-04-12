@@ -6,8 +6,7 @@ import axios from 'axios';
 
 import MyButton from './components/MyButton';
 import MyInput from './components/MyInput';
-import MyTitle from './components/MyTitle';
-import DataGrid from './components/DataGrid';
+import MyDataGrid from './components/MyDataGrid';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -16,22 +15,17 @@ import '@fontsource/roboto/700.css';
 
 function App() {
 
-    const myTitleRef = createRef();
     const inputNameRef = createRef();
-    const alunoDataGridRef = createRef();
+    const alunoMyDataGridRef = createRef();
 
     const selectedRowId = useRef(null);
-
-    const getMyTitleRef = () => {
-        return myTitleRef.current;
-    };
 
     const getInputNameRef = () => {
         return inputNameRef.current;
     };
 
-    const getAlunoDataGridRef = () => {
-        return alunoDataGridRef.current;
+    const getAlunoMyDataGridRef = () => {
+        return alunoMyDataGridRef.current;
     };
 
     const setSelectedRowId = rowId => {
@@ -42,11 +36,7 @@ function App() {
         return selectedRowId.current;
     };
 
-    const setTitle = newTitle => {
-        getMyTitleRef().setTitle(newTitle);
-    };
-
-    const handleOnDataGridUpdateRow = (rowId, rowData) => {
+    const handleOnMyDataGridUpdateRow = (rowId, rowData) => {
         setSelectedRowId(rowId);
 
         getInputNameRef().setValue(rowData.nome);
@@ -68,7 +58,7 @@ function App() {
             });
         }
 
-        getAlunoDataGridRef().getData();
+        getAlunoMyDataGridRef().getData();
         getInputNameRef().setValue('');
     };
 
@@ -117,19 +107,21 @@ function App() {
             )}
             <br />
             <br /> */}
-            <DataGrid
-                ref={alunoDataGridRef}
+            <MyDataGrid
+                ref={alunoMyDataGridRef}
                 baseURL='api/TbAluno'
                 idColumnName='id'
-                updateRow={handleOnDataGridUpdateRow}
+                updateRow={handleOnMyDataGridUpdateRow}
                 columns={[
                     {
-                        value: 'id',
-                        display: 'ID',
+                        field: 'id',
+                        headerName: 'ID',
+                        width: 90,
                     },
                     {
-                        value: 'nome',
-                        display: 'Nome',
+                        field: 'nome',
+                        headerName: 'Nome',
+                        flex: 1,
                     },
                 ]}
             />
