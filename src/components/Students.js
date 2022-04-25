@@ -61,6 +61,7 @@ function Students() {
         <div>
             <MyDataGrid
                 ref={alunoMyDataGridRef}
+                title='Alunos'
                 baseURL='api/TbAluno'
                 idColumnName='id'
                 updateRow={handleOnMyDataGridUpdateRow}
