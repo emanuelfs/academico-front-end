@@ -27,6 +27,7 @@ const MyDataGrid = forwardRef((props, ref) => {
         baseURL,
         columns,
         idColumnName,
+        onNewButtonClick,
         updateRow,
     } = props;
 
@@ -95,9 +96,7 @@ const MyDataGrid = forwardRef((props, ref) => {
                 <Button
                     variant='contained'
                     color='primary'
-                    onClick={() => {
-                        // handleOnUpdate(row[idColumnName], row);
-                    }}
+                    onClick={onNewButtonClick}
                 >
                     Novo
                 </Button>

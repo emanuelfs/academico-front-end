@@ -27,12 +27,14 @@ import {
 } from '@material-ui/core/styles';
 
 import Students from './Students';
+import StudentForm from './StudentForm';
 
 const drawerWidth = 240;
 
 const CONTENT_TYPE_HOME = 'H';
 const CONTENT_TYPE_TEACHER = 'T';
 const CONTENT_TYPE_STUDENT = 'S';
+const CONTENT_TYPE_STUDENT_FORM = 'SF';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,10 +84,20 @@ function AppContent(props) {
         setMobileOpen(!mobileOpen);
     };
 
+    const handleOnStudentsNewButtonClick = () => {
+        setContentType(CONTENT_TYPE_STUDENT_FORM);
+    };
+
+    const handleOnStudentFormSave = () => {
+        alert('Aluno cadastro com sucesso');
+    };
+
     const getContent = () => {
         switch (contentType) {
             case CONTENT_TYPE_STUDENT:
-                return <Students />;
+                return <Students onNewButtonClick={handleOnStudentsNewButtonClick} />;
+            case CONTENT_TYPE_STUDENT_FORM:
+                return <StudentForm onSave={handleOnStudentFormSave} />;
             case CONTENT_TYPE_TEACHER:
                 return 'Professor';
             default:

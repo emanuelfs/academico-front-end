@@ -9,7 +9,11 @@ import MyButton from './MyButton';
 import MyInput from './MyInput';
 import MyDataGrid from './MyDataGrid';
 
-function Students() {
+function Students(props) {
+    const {
+        onNewButtonClick,
+    } = props;
+
     const inputNameRef = createRef();
     const alunoMyDataGridRef = createRef();
 
@@ -64,6 +68,7 @@ function Students() {
                 title='Alunos'
                 baseURL='api/TbAluno'
                 idColumnName='id'
+                onNewButtonClick={onNewButtonClick}
                 updateRow={handleOnMyDataGridUpdateRow}
                 columns={[
                     {

@@ -9,7 +9,6 @@ import {
 
 const MyInput = forwardRef((props, ref) => {
     const {
-        label,
         defaultValue,
     } = props;
 
@@ -30,7 +29,7 @@ const MyInput = forwardRef((props, ref) => {
 
     return (
         <TextField
-            label={label}
+            {...props}
             value={value}
             onChange={handleOnChange}
         />
