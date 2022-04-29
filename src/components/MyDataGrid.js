@@ -19,7 +19,7 @@ import {
 } from '@material-ui/icons';
 import {
     DataGrid,
-} from "@material-ui/data-grid";
+} from '@material-ui/data-grid';
 
 const MyDataGrid = forwardRef((props, ref) => {
     const {
@@ -101,8 +101,8 @@ const MyDataGrid = forwardRef((props, ref) => {
             </div>
             <div
                 style={{
-                    height: 300,
-                    width: "100%"
+                    height: 'calc(100vh - 170px)',
+                    width: '100%'
                 }}
             >
                 <DataGrid
