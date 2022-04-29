@@ -1,4 +1,5 @@
 import React, {
+    useRef,
     useState,
 } from 'react';
 import {
@@ -80,24 +81,56 @@ function AppContent(props) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [contentType, setContentType] = useState(CONTENT_TYPE_HOME);
 
+    const studentData = useRef({});
+
+    const setStudentData = currentStudentData => {
+        studentData.current = currentStudentData;
+    };
+
+    const getStudentData = () => {
+        return studentData.current;
+    };
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const handleOnStudentsNewButtonClick = () => {
+        setStudentData({});
         setContentType(CONTENT_TYPE_STUDENT_FORM);
     };
 
-    const handleOnStudentFormSave = () => {
-        alert('Aluno cadastro com sucesso');
+    const handleOnStudentsUpdateButtonClick = currentStudentData => {
+        setStudentData(currentStudentData);
+        setContentType(CONTENT_TYPE_STUDENT_FORM);
+    };
+
+    const handleOnStudentFormSave = message => {
+        alert(message);
     };
 
     const getContent = () => {
         switch (contentType) {
             case CONTENT_TYPE_STUDENT:
-                return <Students onNewButtonClick={handleOnStudentsNewButtonClick} />;
+                return (
+                    <Students
+                        onNewButtonClick={handleOnStudentsNewButtonClick}
+                        onUpdateButtonClick={handleOnStudentsUpdateButtonClick}
+                    />
+                );
             case CONTENT_TYPE_STUDENT_FORM:
-                return <StudentForm onSave={handleOnStudentFormSave} />;
+                const {
+                    id,
+                    nome,
+                } = getStudentData();
+
+                return (
+                    <StudentForm
+                        studentId={id}
+                        studentName={nome}
+                        onSave={handleOnStudentFormSave}
+                    />
+                );
             case CONTENT_TYPE_TEACHER:
                 return 'Professor';
             default:

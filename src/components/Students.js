@@ -12,6 +12,7 @@ import MyDataGrid from './MyDataGrid';
 function Students(props) {
     const {
         onNewButtonClick,
+        onUpdateButtonClick,
     } = props;
 
     const inputNameRef = createRef();
@@ -36,9 +37,14 @@ function Students(props) {
     };
 
     const handleOnMyDataGridUpdateRow = (rowId, rowData) => {
-        setSelectedRowId(rowId);
+        onUpdateButtonClick({
+            id: rowId,
+            nome: rowData.nome,
+        });
 
-        getInputNameRef().setValue(rowData.nome);
+        // setSelectedRowId(rowId);
+
+        // getInputNameRef().setValue(rowData.nome);
     };
 
     const handleOnButtonSaveClick = async () => {

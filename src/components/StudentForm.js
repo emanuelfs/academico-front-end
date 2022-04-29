@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme) => ({
 
 function StudentForm(props) {
     const {
+        studentId,
+        studentName,
         onSave,
     } = props;
 
@@ -38,13 +40,20 @@ function StudentForm(props) {
     };
 
     const handleOnButtonSaveClick = async () => {
-        await axios.post('/api/TbAluno', {
-            nome: getInputNameRef().getValue(),
-        });
+        if (studentId) {
+            await axios.put(`/api/TbAluno/${studentId}`, {
+                id: studentId,
+                nome: getInputNameRef().getValue(),
+            });
 
-        getInputNameRef().setValue('');
+            onSave('Aluno alterado com sucesso');
+        } else {
+            await axios.post('/api/TbAluno', {
+                nome: getInputNameRef().getValue(),
+            });
 
-        onSave();
+            onSave('Aluno cadastro com sucesso');
+        }
     };
 
     const classes = useStyles();
@@ -62,6 +71,7 @@ function StudentForm(props) {
                     <MyInput
                         fullWidth
                         ref={inputNameRef}
+                        defaultValue={studentName}
                         label='Nome: '
                         variant='outlined'
                         size='small'

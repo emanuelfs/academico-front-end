@@ -37,8 +37,6 @@ const MyDataGrid = forwardRef((props, ref) => {
     });
 
     const handleOnUpdate = (rowId, rowData) => {
-        console.log(rowId);
-        console.log(rowData);
         updateRow(rowId, rowData);
     };
 
