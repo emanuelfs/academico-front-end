@@ -84,7 +84,7 @@ const MyDataGrid = forwardRef((props, ref) => {
             >
                 <Typography
                     gutterBottom
-                    variant='h5'
+                    variant='h6'
                     style={{
                         margin: 0,
                     }}

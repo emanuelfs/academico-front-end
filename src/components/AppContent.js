@@ -45,12 +45,13 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('sm')]: {
             width: drawerWidth,
             flexShrink: 0,
+            zIndex: 1,
         },
     },
     appBar: {
         [theme.breakpoints.up('sm')]: {
-            width: `calc(100% - ${drawerWidth}px)`,
-            marginLeft: drawerWidth,
+            width: 'calc(100%)',
+            zIndex: 2,
         },
     },
     menuButton: {
@@ -185,28 +186,34 @@ function AppContent(props) {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar
+                position='fixed'
+                className={classes.appBar}
+            >
                 <Toolbar>
                     <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
+                        color='inherit'
+                        aria-label='open drawer'
+                        edge='start'
                         onClick={handleDrawerToggle}
                         className={classes.menuButton}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Responsive drawer
+                    <Typography
+                        noWrap
+                        variant='h6'
+                    >
+                        Sistema Acadêmico
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
+            <nav className={classes.drawer} aria-label='mailbox folders'>
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
+                <Hidden smUp implementation='css'>
                     <Drawer
                         container={container}
-                        variant="temporary"
+                        variant='temporary'
                         anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                         open={mobileOpen}
                         onClose={handleDrawerToggle}
@@ -220,12 +227,12 @@ function AppContent(props) {
                         {drawer}
                     </Drawer>
                 </Hidden>
-                <Hidden xsDown implementation="css">
+                <Hidden xsDown implementation='css'>
                     <Drawer
                         classes={{
                             paper: classes.drawerPaper,
                         }}
-                        variant="permanent"
+                        variant='permanent'
                         open
                     >
                         {drawer}
