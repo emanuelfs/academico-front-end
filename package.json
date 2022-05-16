@@ -1,6 +1,12 @@
 {
     "name": "academico",
     "version": "0.1.0",
+    "main": "public/electron.js",
+    "author": {
+        "name": "Emanuel Ferreira da Silva",
+        "email": "emanuelfs.info@gmail.com"
+    },
+    "description": "Exemplo de sistema acadêmico em Electron",
     "private": true,
     "dependencies": {
         "@fontsource/roboto": "^4.5.5",
@@ -11,16 +17,24 @@
         "@testing-library/react": "^12.1.4",
         "@testing-library/user-event": "^13.5.0",
         "axios": "^0.26.1",
+        "electron-is-dev": "^2.0.0",
+        "electron-squirrel-startup": "^1.0.0",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-scripts": "5.0.0",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
-        "start": "react-app-rewired start",
+        "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "dev": "concurrently -k \"npm run start\" \"npm run electron\"",
+        "electron": "wait-on tcp:3000 && electron .",
+        "package": "react-scripts build && electron-forge package",
+        "make-mac": "react-scripts build && electron-forge make --platform darwin",
+        "make-linux": "react-scripts build && electron-forge make --platform linux",
+        "make": "react-scripts build && electron-forge make"
     },
     "eslintConfig": {
         "extends": [
@@ -41,9 +55,58 @@
         ]
     },
     "devDependencies": {
+        "@electron-forge/cli": "^6.0.0-beta.63",
+        "@electron-forge/maker-deb": "^6.0.0-beta.63",
+        "@electron-forge/maker-dmg": "^6.0.0-beta.63",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+        "@electron-forge/maker-zip": "^6.0.0-beta.63",
         "babel-plugin-import": "^1.13.3",
+        "concurrently": "^7.1.0",
         "customize-cra": "^1.0.0",
+        "electron": "^18.2.0",
         "http-proxy-middleware": "^2.0.4",
-        "react-app-rewired": "^2.2.1"
+        "react-app-rewired": "^2.2.1",
+        "wait-on": "^6.0.1"
+    },
+    "config": {
+        "forge": {
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "stock_trading_app"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {
+                        "name": "stock_trading_app"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-rpm",
+                    "config": {
+                        "name": "stock_trading_app"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-dmg",
+                    "config": {
+                        "name": "stock_trading_app",
+                        "format": "ULFO"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin",
+                        "linux",
+                        "win32"
+                    ]
+                }
+            ]
+        }
     }
 }
